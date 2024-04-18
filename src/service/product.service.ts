@@ -27,12 +27,20 @@ export class ProductService {
   }
 
   async list() {
-    const allProducts = await this.contract.methods.listAllProducts().call();
-    return allProducts;
+    const rawProducts: any = await this.contract.methods.listAllProducts().call();
+    const products = rawProducts.map(product => ({
+        id: product.id.toString(),
+        sku: product.sku.toString(),
+        name: product.name.toString(),
+        composition: product.composition.toString(),
+        certificates: product.certificates.toString(),
+        manufacturingDate: product.manufacturingDate.toString(),
+    }));
+    return products;
   }
 
   async create(body: any) {
-    const allProducts = await this.contract.methods
+    await this.contract.methods
       .createProduct(
         body.recipient,
         body.sku,
@@ -44,6 +52,5 @@ export class ProductService {
         body.tokenAmount,
       )
       .send();
-    return allProducts;
   }
 }

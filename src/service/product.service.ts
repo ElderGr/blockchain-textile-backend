@@ -32,7 +32,7 @@ export class ProductService {
         id: product.id.toString(),
         sku: product.sku.toString(),
         name: product.name.toString(),
-        composition: product.composition.toString(),
+        composition: product.compositions.toString(),
         certificates: product.certificates.toString(),
         manufacturingDate: product.manufacturingDate.toString(),
     }));
